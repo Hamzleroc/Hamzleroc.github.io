@@ -3,6 +3,7 @@
 import { useState } from "react";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import BeeSvg from "@/components/BeeSvg";
+import { useCart } from "@/context/CartContext";
 
 type Category = "All" | "Face Serums & Oils" | "Moisturizers & Creams" | "Body Care";
 
@@ -12,6 +13,7 @@ const ALL_PRODUCTS = [
     name: "Heritage Glow Serum",
     category: "Face Serums & Oils" as Category,
     price: "€65",
+    priceNum: 65,
     desc: "A potent blend of African botanicals and cold-pressed oils that restores lasting radiance.",
     bg: "from-amber-pale to-beige",
   },
@@ -20,6 +22,7 @@ const ALL_PRODUCTS = [
     name: "Botanical Brightening Oil",
     category: "Face Serums & Oils" as Category,
     price: "€55",
+    priceNum: 55,
     desc: "Baobab and rosehip oil fused with turmeric extract for an even, luminous complexion.",
     bg: "from-beige to-amber-pale",
   },
@@ -28,6 +31,7 @@ const ALL_PRODUCTS = [
     name: "Radiance Face Oil",
     category: "Face Serums & Oils" as Category,
     price: "€48",
+    priceNum: 48,
     desc: "Lightweight moringa oil enriched with African violet leaf for daily all-day glow.",
     bg: "from-cream to-amber-pale",
   },
@@ -36,6 +40,7 @@ const ALL_PRODUCTS = [
     name: "Velvet Moisture Cream",
     category: "Moisturizers & Creams" as Category,
     price: "€45",
+    priceNum: 45,
     desc: "Deep hydration powered by baobab oil and shea with a velvet-soft, non-greasy finish.",
     bg: "from-amber-pale to-cream",
   },
@@ -44,6 +49,7 @@ const ALL_PRODUCTS = [
     name: "African Shea Cream",
     category: "Moisturizers & Creams" as Category,
     price: "€38",
+    priceNum: 38,
     desc: "Raw unrefined shea blended with jojoba and vitamin E. Suitable for all skin types.",
     bg: "from-beige to-cream",
   },
@@ -52,6 +58,7 @@ const ALL_PRODUCTS = [
     name: "Heritage Night Cream",
     category: "Moisturizers & Creams" as Category,
     price: "€52",
+    priceNum: 52,
     desc: "An overnight formula with frankincense, marula, and African plum extract.",
     bg: "from-cream to-beige",
   },
@@ -60,6 +67,7 @@ const ALL_PRODUCTS = [
     name: "Raw Honey Body Butter",
     category: "Body Care" as Category,
     price: "€35",
+    priceNum: 35,
     desc: "Ultra-rich whipped butter with raw Rwandan honey and triple-milled shea.",
     bg: "from-amber-pale to-beige",
   },
@@ -68,6 +76,7 @@ const ALL_PRODUCTS = [
     name: "Exfoliating Sugar Scrub",
     category: "Body Care" as Category,
     price: "€32",
+    priceNum: 32,
     desc: "Brown sugar crystals in a base of coconut and argan oils for silky-smooth skin.",
     bg: "from-beige to-amber-pale",
   },
@@ -76,6 +85,7 @@ const ALL_PRODUCTS = [
     name: "Argan Body Elixir",
     category: "Body Care" as Category,
     price: "€42",
+    priceNum: 42,
     desc: "A fast-absorbing dry oil with Moroccan argan and vitamin-rich marula.",
     bg: "from-cream to-amber-pale",
   },
@@ -85,6 +95,7 @@ const CATEGORIES: Category[] = ["All", "Face Serums & Oils", "Moisturizers & Cre
 
 export default function ProductsPage() {
   const [active, setActive] = useState<Category>("All");
+  const { addItem, items } = useCart();
 
   const products =
     active === "All" ? ALL_PRODUCTS : ALL_PRODUCTS.filter((p) => p.category === active);
@@ -154,8 +165,11 @@ export default function ProductsPage() {
                     <span className="font-sans text-sm font-semibold text-amber flex-shrink-0">{p.price}</span>
                   </div>
                   <p className="font-sans text-sm text-muted leading-6 mb-5">{p.desc}</p>
-                  <button className="font-sans text-xs tracking-[0.18em] uppercase font-semibold px-6 py-3 bg-amber text-cream hover:bg-amber-dark transition-colors duration-200 cursor-pointer w-full focus-visible:outline-2 focus-visible:outline-amber">
-                    Add to Cart
+                  <button
+                    onClick={() => addItem({ id: p.id, name: p.name, price: p.price, priceNum: p.priceNum, category: p.category })}
+                    className="font-sans text-xs tracking-[0.18em] uppercase font-semibold px-6 py-3 bg-amber text-cream hover:bg-amber-dark transition-colors duration-200 cursor-pointer w-full focus-visible:outline-2 focus-visible:outline-amber"
+                  >
+                    {items.some((i) => i.id === p.id) ? "Add Another" : "Add to Cart"}
                   </button>
                 </article>
               </AnimateOnScroll>
