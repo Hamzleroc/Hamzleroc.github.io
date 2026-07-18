@@ -1,35 +1,41 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Montserrat } from "next/font/google";
+import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
+import LocaleSync from "@/components/LocaleSync";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const cormorant = Cormorant_Garamond({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
-const montserrat = Montserrat({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-montserrat",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Malab Skin | Skincare Meets Heritage",
+  metadataBase: new URL("https://hamzleroc.github.io"),
+  title: {
+    default: "Altrix Engineering | Electrical & Solar Experts in Belgium",
+    template: "%s | Altrix Engineering",
+  },
   description:
-    "Premium natural skincare rooted in African heritage. Precision-formulated in Belgium.",
-  keywords: "skincare, natural, heritage, Belgium, luxury, African beauty, organic",
+    "Altrix Engineering designs, installs and maintains solar panels, batteries, EV chargers, heat pumps and electrical systems across Belgium. Engineering tomorrow's infrastructure.",
+  keywords:
+    "solar panels Belgium, electrical installation, zonnepanelen, elektricien, heat pump, EV charging, home battery, Altrix Engineering",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${montserrat.variable}`}>
-      <body className="min-h-screen flex flex-col antialiased bg-cream-light text-brown font-sans">
+    <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
+      <body className="min-h-screen flex flex-col antialiased bg-paper text-navy font-sans">
+        <LocaleSync />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import HomeTemplate from "@/components/templates/HomeTemplate";
 import { getDictionary } from "@/lib/i18n";
 
-const dict = getDictionary("en");
+const dict = getDictionary("nl");
 
 export const metadata: Metadata = {
   title: dict.meta.home.title,
   description: dict.meta.home.description,
-  alternates: { canonical: "/", languages: { en: "/", nl: "/nl" } },
+  alternates: { canonical: "/nl", languages: { en: "/", nl: "/nl" } },
 };
 
 export default function Page() {
-  return <HomeTemplate locale="en" />;
+  return <HomeTemplate locale="nl" />;
 }

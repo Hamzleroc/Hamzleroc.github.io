@@ -1,23 +1,31 @@
 @import "tailwindcss";
 
-/* ── Brand Design Tokens ──────────────────────────────────────── */
+/* ── Brand Design Tokens — Altrix Engineering ────────────────── */
 @theme {
-  --color-cream:       #F4EDE4;
-  --color-cream-light: #FAF7F2;
-  --color-amber:       #B8722A;
-  --color-amber-dark:  #8A5218;
-  --color-amber-light: #D4946A;
-  --color-amber-pale:  #F0E4D7;
-  --color-charcoal:    #1A1208;
-  --color-brown:       #3D2B1A;
-  --color-muted:       #7A6248;
-  --color-beige:       #E8D9C8;
+  --color-ink:        #070B14;
+  --color-ink-soft:   #0E1626;
+  --color-navy:       #131D33;
+  --color-navy-light: #1D2B4A;
+  --color-volt:       #3E7BFA;
+  --color-volt-dark:  #2555D6;
+  --color-volt-light: #8FB4FF;
+  --color-solar:      #FFB020;
+  --color-solar-dark: #E0940A;
+  --color-solar-pale: #FFE7B8;
+  --color-eco:        #34D399;
+  --color-paper:      #F6F8FC;
+  --color-paper-dim:  #EBF0F8;
+  --color-white:      #FFFFFF;
+  --color-slate:      #56607A;
+  --color-slate-light:#8891A8;
+  --color-line:       #E1E7F1;
+  --color-line-dark:  rgba(255, 255, 255, 0.1);
 }
 
 /* Runtime font variables injected by Next.js font system */
 @theme inline {
-  --font-display: var(--font-cormorant);
-  --font-sans:    var(--font-montserrat);
+  --font-display: var(--font-space-grotesk);
+  --font-sans:    var(--font-inter);
 }
 
 /* ── Keyframes ────────────────────────────────────────────────── */
@@ -33,6 +41,36 @@
 
 @keyframes marquee {
   from { transform: translateX(0);    }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(3%, -4%) scale(1.05); }
+  66%      { transform: translate(-3%, 3%) scale(0.97); }
+}
+
+@keyframes drift-slow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-4%, 5%) scale(1.08); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 
@@ -70,17 +108,64 @@
   transform: translateY(0);
 }
 
-/* ── Marquee ──────────────────────────────────────────────────── */
+/* ── Ambient background blobs ─────────────────────────────────── */
+.blob-drift {
+  animation: drift 18s ease-in-out infinite;
+}
+
+.blob-drift-slow {
+  animation: drift-slow 26s ease-in-out infinite;
+}
+
+.pulse-glow {
+  animation: pulseGlow 3.2s ease-in-out infinite;
+}
+
+.spin-slow {
+  animation: spinSlow 40s linear infinite;
+}
+
+/* Animated circuit-line draw */
+.circuit-line {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: dash 2.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+/* ── Marquee / ticker ─────────────────────────────────────────── */
 .animate-marquee {
-  animation: marquee 30s linear infinite;
+  animation: marquee 34s linear infinite;
+}
+
+.animate-ticker {
+  animation: ticker 26s linear infinite;
+}
+
+.marquee-pause:hover .animate-marquee,
+.marquee-pause:hover .animate-ticker {
+  animation-play-state: paused;
+}
+
+/* ── Card hover lift ──────────────────────────────────────────── */
+.lift-hover {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+}
+
+.lift-hover:hover {
+  transform: translateY(-6px);
 }
 
 /* ── Base ─────────────────────────────────────────────────────── */
 html { scroll-behavior: smooth; }
 
 body {
-  background-color: #FAF7F2;
-  color: #3D2B1A;
+  background-color: #F6F8FC;
+  color: #131D33;
+}
+
+::selection {
+  background-color: #3E7BFA;
+  color: #FFFFFF;
 }
 
 /* ── Reduced motion ───────────────────────────────────────────── */
